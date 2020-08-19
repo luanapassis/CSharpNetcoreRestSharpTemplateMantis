@@ -12,14 +12,14 @@ using RestSharpNetCoreTemplate.Requests.Users;
 
 namespace RestSharpNetCoreTemplate.Tests.Users
 {
+   //[Parallelizable(ParallelScope.All)]
     public class DeleteUserTests : TestBase
     {
         public DataBaseSteps dataBaseSteps = new DataBaseSteps();
 
         
         [Test]
-        [Parallelizable(ParallelScope.None)]
-        public void deletaUsuario()
+        public void DeletaUsuario()
         {
             string usuarioDeletar = "testeAPIDeletar";
             string idUsuarioDeletar = dataBaseSteps.retornaidUsuario(usuarioDeletar);
@@ -31,8 +31,7 @@ namespace RestSharpNetCoreTemplate.Tests.Users
         }
 
         [Test]
-        [Parallelizable(ParallelScope.None)]
-        public void deletaUsuarioInexistente()
+        public void DeletaUsuarioInexistente()
         {
             string idUsuarioDeletar = "99999";
 

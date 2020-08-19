@@ -11,14 +11,15 @@ using RestSharpNetCoreTemplate.Requests.Lang;
 using RestSharpNetCoreTemplate.Requests.Issues;
 using RestSharpNetCoreTemplate.DBSteps;
 
+
 namespace RestSharpNetCoreTemplate.Tests.Issue
 {
+    //[Parallelizable(ParallelScope.All)]
     public class GetAnIssueTests : TestBase
     {
 
         [Test]
-        [Parallelizable(ParallelScope.None)]
-        public void retornaTarefaInvalida()
+        public void RetornaTarefaInvalida()
         {
 
             string issueIdInvalida = "9999";
@@ -41,8 +42,7 @@ namespace RestSharpNetCoreTemplate.Tests.Issue
             }
         }
         [Test]
-        [Parallelizable(ParallelScope.None)]
-        public void retornaTarefaValida()
+        public void RetornaTarefaValida()
         {
 
             List<string> tarefa = dataBaseSteps.retornaTarefaAleatoria();

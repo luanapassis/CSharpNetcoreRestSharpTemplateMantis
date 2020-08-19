@@ -1,0 +1,19 @@
+﻿{
+    "summary": "$sumary",
+    "description": "$description",
+    "project": {
+        "id": $projectId,
+        "name": "$projectName"
+    },
+    "category": {
+        "id": $categoryId,
+        "name": "$categoryName"
+    },
+    
+    "files": [
+        {
+            "name": "$fileName",
+            "content": "$fileContent"
+        }
+    ]
+}

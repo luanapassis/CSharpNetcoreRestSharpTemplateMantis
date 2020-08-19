@@ -17,6 +17,7 @@ namespace RestSharpNetCoreTemplate.Bases
         public void OneTimeSetUp()
         {
             dataBaseSteps.cargaTabelaUsuario();
+            dataBaseSteps.cargaProjeto();
             ExtentReportHelpers.CreateReport();
         }
 

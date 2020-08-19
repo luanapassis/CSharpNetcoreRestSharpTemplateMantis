@@ -74,6 +74,31 @@ namespace RestSharpNetCoreTemplate.DBSteps
             }
             //
         }
+
+        public void cargaProjeto()
+        {
+            string consulta = string.Format(@"SELECT * FROM mantis_project_mantis WHERE NAME = 'Teste'");
+            List<string> resultado = dbHelpers.retornaDadosQuery(consulta);
+            if (resultado == null)
+            {
+                string query = string.Format(@"INSERT INTO mantis_project_mantis ( name, status, enabled, view_state, access_min, file_path, description, category_id, inherit_global)
+                                               VALUES('Teste', 10,1, 10, 10, '', '', 1, 1)");
+                dbHelpers.executaQuery(query);
+            }
+            //
+
+            string consulta3 = string.Format(@"SELECT * FROM mantis_project_mantis WHERE NAME = 'Teste SubProjeto'");
+            List<string> resultado3 = dbHelpers.retornaDadosQuery(consulta3);
+            if (resultado3 == null)
+            {
+                string query3 = string.Format(@"INSERT INTO mantis_project_mantis ( name, status, enabled, view_state, access_min, file_path, description, category_id, inherit_global)
+                                               VALUES('Teste SubProjeto', 10,1, 10, 10, '', '', 1, 1)");
+                dbHelpers.executaQuery(query3);
+            }
+
+
+        }
+
         #endregion
 
         public List<string> retornaTarefaAleatoria()
@@ -89,5 +114,24 @@ namespace RestSharpNetCoreTemplate.DBSteps
             List<string> resultado = dbHelpers.retornaDadosQuery(consulta);
             return resultado[0];
         }
+
+        public List<string> retornaUsuario(string nome)
+        {
+            string consulta = string.Format(@"SELECT * FROM mantis_user_mantis where username = '{0}'", nome);
+            List<string> resultado = dbHelpers.retornaDadosQuery(consulta);
+            return resultado;
+        }
+
+        public string retornaQuantidadaTarefaPorProjeto(string projetoId)
+        {
+            string consulta = string.Format(@"SELECT COUNT(*) 
+                                            from mantis_bug_mantis bm 
+                                            INNER join mantis_bug_text_mantis btm 
+                                             ON bm.id = btm.id
+                                            WHERE project_id= {0}", projetoId);
+            List<string> resultado = dbHelpers.retornaDadosQuery(consulta);
+            return resultado[0];
+        }
+
     }
 }

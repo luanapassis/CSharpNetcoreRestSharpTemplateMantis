@@ -11,11 +11,11 @@ using RestSharpNetCoreTemplate.Requests.Users;
 
 namespace RestSharpNetCoreTemplate.Tests.Users
 {
+   //[Parallelizable(ParallelScope.All)]
     public class UsersInfoTests : TestBase
     {
         [Test]
-        [Parallelizable(ParallelScope.None)]
-        public void returnUserLogged()
+        public void RetornaUsuarioLogado()
         {
             string status = "OK";
 

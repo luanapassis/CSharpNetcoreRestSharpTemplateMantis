@@ -9,20 +9,17 @@ using System.Threading.Tasks;
 using RestSharpNetCoreTemplate.Bases;
 using RestSharpNetCoreTemplate.Requests.Lang;
 
+
 namespace RestSharpNetCoreTemplate.Tests.Lang
 {
+   //[Parallelizable(ParallelScope.All)]
     public class LangMultipleLocalizedTests : TestBase
     {
         [Test]
-        [Parallelizable(ParallelScope.None)]
-        public void langAllproject()
+        public void RetornaStringsBackToBugLink()
         {
-            string string1 = "all_projects";
-            string string2 = "does_not_exist";
-            string string3 = "status";
-            string string4 = "move_bugs";
-            string string5 = "status_enum_string";
-            PageMultipleLocalizedRequest pageMultipleLocalizedRequest = new PageMultipleLocalizedRequest(string1, string2, string3, string4, string5);
+            string string1 = "back_to_bug_link";
+            PageMultipleLocalizedRequest pageMultipleLocalizedRequest = new PageMultipleLocalizedRequest(string1);
 
             IRestResponse<dynamic> response = pageMultipleLocalizedRequest.ExecuteRequest();
 
@@ -30,8 +27,8 @@ namespace RestSharpNetCoreTemplate.Tests.Lang
 
             string[] arrayRegex = new string[]
             {
-                "\"name\":(.*?)\"all_projects",
-                "\"localized\":(.*?)\"All Projects",
+                "\"name\":(.*?)\"back_to_bug_link",
+                "\"localized\":(.*?)\"Back To Issue",
             };
             MatchCollection matches;
             foreach (string regex in arrayRegex)
@@ -41,5 +38,75 @@ namespace RestSharpNetCoreTemplate.Tests.Lang
             }
 
         }
+        [Test]
+        public void RetornaStringUpdateSimpleLink()
+        {
+            string string1 = "update_simple_link";
+            PageMultipleLocalizedRequest pageMultipleLocalizedRequest = new PageMultipleLocalizedRequest(string1);
+
+            IRestResponse<dynamic> response = pageMultipleLocalizedRequest.ExecuteRequest();
+
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+            string[] arrayRegex = new string[]
+            {
+                "\"name\":(.*?)\"update_simple_link",
+                "\"localized\":(.*?)\"Update Simple",
+            };
+            MatchCollection matches;
+            foreach (string regex in arrayRegex)
+            {
+                matches = new Regex(regex).Matches(response.Content);
+                Assert.That(matches.Count > 0, "Esperado: " + regex + " Encontrado:" + response.Content);
+            }
+
+        }
+        [Test]
+        public void RetornaStringCategory()
+        {
+            string string1 = "category";
+            PageMultipleLocalizedRequest pageMultipleLocalizedRequest = new PageMultipleLocalizedRequest(string1);
+
+            IRestResponse<dynamic> response = pageMultipleLocalizedRequest.ExecuteRequest();
+
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+            string[] arrayRegex = new string[]
+            {
+                "\"name\":(.*?)\"category",
+                "\"localized\":(.*?)\"Category",
+            };
+            MatchCollection matches;
+            foreach (string regex in arrayRegex)
+            {
+                matches = new Regex(regex).Matches(response.Content);
+                Assert.That(matches.Count > 0, "Esperado: " + regex + " Encontrado:" + response.Content);
+            }
+
+        }
+        [Test]
+        public void RetornaStringReproducibility()
+        {
+            string string1 = "reproducibility";
+            PageMultipleLocalizedRequest pageMultipleLocalizedRequest = new PageMultipleLocalizedRequest(string1);
+
+            IRestResponse<dynamic> response = pageMultipleLocalizedRequest.ExecuteRequest();
+
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+            string[] arrayRegex = new string[]
+            {
+                "\"name\":(.*?)\"reproducibility",
+                "\"localized\":(.*?)\"Reproducibility",
+            };
+            MatchCollection matches;
+            foreach (string regex in arrayRegex)
+            {
+                matches = new Regex(regex).Matches(response.Content);
+                Assert.That(matches.Count > 0, "Esperado: " + regex + " Encontrado:" + response.Content);
+            }
+
+        }
+        
     }
 }

@@ -11,11 +11,11 @@ using RestSharpNetCoreTemplate.Requests.Lang;
 
 namespace RestSharpNetCoreTemplate.Tests.Lang
 {
+   //[Parallelizable(ParallelScope.All)]
     public class LangTests : TestBase
     {
         [Test]
-        [Parallelizable(ParallelScope.None)]
-        public void returnLanguage()
+        public void RetornaLinguagemUsuarioLogado()
         {
             LangRequest langRequest = new LangRequest();
 
