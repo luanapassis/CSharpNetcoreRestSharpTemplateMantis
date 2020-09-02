@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -139,6 +140,35 @@ namespace RestSharpNetCoreTemplate.Helpers
             const string chars = "0123456789";
             return new string(Enumerable.Repeat(chars, size)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        //usando para fazer datadriven
+
+        /*
+         metodo do datadriven
+         public static IEnumerable NomeMetodoDataDriven()
+         {
+            return GeneralHelpers.ReturnCSVData("local do csv")
+         }
+         
+         metodo de teste ser:
+         [Test, TestCaseSource("NomeDoMetodo")] 
+         public void NomeDoMetodoDeTeste(ArrayList testData)
+          
+         */
+        public static IEnumerable ReturnCSVData(string csvPath)
+        {
+            using (StreamReader sr = new StreamReader(csvPath, System.Text.Encoding.GetEncoding(1252)))
+            {
+                string headerLine = sr.ReadLine();
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    ArrayList result = new ArrayList();
+                    result.AddRange(line.Split(';'));
+                    yield return result;
+                }
+            }
         }
     }
 
