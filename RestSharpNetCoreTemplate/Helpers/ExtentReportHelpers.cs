@@ -31,13 +31,14 @@ namespace RestSharpNetCoreTemplate.Helpers
         static string reportRootPath = projectFolderPath + "/Reports/";
         static string reportPath = projectFolderPath + "/Reports/" + reportName + "/";
         static string fileName = reportName + ".html";
-        static string fullReportFilePath = reportPath + "_" + fileName;
+        static string fullReportFilePath = reportPath + "" + fileName;
 
         public static void CreateReport()
         {
             if (EXTENT_REPORT == null)
             {
-                var htmlReporter = new ExtentHtmlReporter(fullReportFilePath);
+                //var htmlReporter = new ExtentHtmlReporter(fullReportFilePath);//report com 3 html's
+                var htmlReporter = new ExtentV3HtmlReporter(fullReportFilePath);//report unificado no html's
                 EXTENT_REPORT = new AventStack.ExtentReports.ExtentReports();
                 EXTENT_REPORT.AttachReporter(htmlReporter);
             }
@@ -194,6 +195,9 @@ namespace RestSharpNetCoreTemplate.Helpers
         public static void GenerateReport()
         {
             EXTENT_REPORT.Flush();
+            /*linha adicionada para manter sempre o ultimo relatorio numa 
+            pasta para o jentkins enviar por email*/
+            GeneralHelpers.DirectoryCopy(reportPath, reportRootPath + @"\UltimaExecucao", true);
         }
     }
 }

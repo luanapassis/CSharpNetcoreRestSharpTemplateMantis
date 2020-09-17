@@ -77,6 +77,80 @@ namespace RestSharpNetCoreTemplate.Helpers
             var directory = Path.GetDirectoryName(fullReportFilePath);
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
         }
+        
+        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            var dir = new DirectoryInfo(sourceDirName);
+            var dirs = dir.GetDirectories();
+            // Se o diretório de origem não existe, lançar uma exceção.
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+            // Se o diretório de destino não existe, criá-lo.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);           
+            }
+            //deleta arquivos da pasta
+            System.IO.DirectoryInfo deletarDestino = new DirectoryInfo(destDirName);
+            foreach (FileInfo file in deletarDestino.GetFiles())
+            {
+                file.Delete();
+            } 
+
+            // Receba o conteúdo do arquivo do diretório para copiar.
+            var files = dir.GetFiles();
+            foreach (var file in files)
+            {
+                // Crie o caminho para a nova cópia do arquivo.
+                var temppath = Path.Combine(destDirName, file.Name);
+                // Copie o arquivo.
+                file.CopyTo(temppath, true);
+            }
+            // Se copySubDirs é verdade, copiar os subdiretórios.
+            if (!copySubDirs) return;
+            foreach (var subdir in dirs)
+            {
+                // Criar o subdiretório.
+                var temppath = Path.Combine(destDirName, subdir.Name);
+                // Copiar os subdiretórios.
+                DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+            }
+        }
+
+
+        public static String CreateDirectoryFolder(string path, string folderName)
+        {
+            // Specify the directory you want to manipulate.
+
+            try
+            {
+                if (Directory.Exists(path + "\\" + folderName))
+                {
+                    Console.WriteLine("That path exists already.");
+                    return path + folderName;
+                }
+
+                // Try to create the directory.
+                DirectoryInfo di = Directory.CreateDirectory(path + "\\" + folderName);
+                Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path + "\\" + folderName));
+
+                // Delete the directory.
+                //di.Delete();
+
+                //Console.WriteLine("The directory was deleted successfully.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The process failed: {0}", e.ToString());
+            }
+            finally { }
+
+            return path + "\\" + folderName;
+        }
 
         public static string ReturnProjectPath()
         {

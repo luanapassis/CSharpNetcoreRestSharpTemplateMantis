@@ -42,5 +42,17 @@ namespace RestSharpNetCoreTemplate.Tests.Issue
                 Assert.That(response.StatusDescription.Contains(id));
             });
         }
+
+        [Test]
+        public void teste()
+        {
+            var client = new RestClient("http://localhost/mantis/api/rest/issues/10");
+
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "t4VJIkRw6SsgcGY1ZaDjFKe6kp9jcOty");
+
+            IRestResponse response = client.Execute(request);
+            Console.WriteLine(response.Content);
+        }
     }
 }
