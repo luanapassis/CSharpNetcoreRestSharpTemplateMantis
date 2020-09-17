@@ -1,3 +1,0 @@
-Automacao API Mantis - Build # 47 - Successful:
-
-Check console output at http://localhost:8080/job/Automacao%20API%20Mantis/47/ to view the results.

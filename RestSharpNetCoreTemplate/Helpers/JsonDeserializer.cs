@@ -11,6 +11,7 @@ namespace RestSharpNetCoreTemplate.Helpers
 {
     public class JsonDeserializer : IDeserializer
     {
+
         public string RootElement { get; set; }
         public string Namespace { get; set; }
         public string DateFormat { get; set; }
@@ -20,4 +21,5 @@ namespace RestSharpNetCoreTemplate.Helpers
             return JsonConvert.DeserializeObject<dynamic>(response.Content);
         }
     }
+    
 }

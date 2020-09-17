@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,8 +76,9 @@ namespace RestSharpNetCoreTemplate.Helpers
                 client.Authenticator = new NtlmAuthenticator(JsonBuilder.ReturnParameterAppSettings("AUTHENTICATOR_USER"), JsonBuilder.ReturnParameterAppSettings("AUTHENTICATOR_PASSWORD"));
             }
 
-            client.AddHandler("application/json", new JsonDeserializer());
-            
+            //client.AddHandler("application/json", new JsonDeserializer());
+            client.AddHandler("application/json", () => { return new JsonDeserializer(); });
+
             return client.Execute<dynamic>(request);
         }
 
