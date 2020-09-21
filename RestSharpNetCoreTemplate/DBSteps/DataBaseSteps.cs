@@ -107,6 +107,20 @@ namespace RestSharpNetCoreTemplate.DBSteps
             List<String> resultado = dbHelpers.retornaListaDadosQuery(query);
             return resultado;
         }
+        public List<string> retornaTarefaSemDocumento()
+        {
+            String query = string.Format(@"SELECT * FROM mantis_bug_mantis
+                                            WHERE id NOT IN(
+                                            SELECT bm.id from mantis_bug_mantis bm 
+                                            INNER join mantis_bug_text_mantis btm 
+                                             ON bm.id = btm.id 
+                                            inner JOIN mantis_bug_file_mantis bfm
+                                             ON bm.id = bfm.bug_id)
+                                             ORDER BY RAND() LIMIT 1");
+            List<String> resultado = dbHelpers.retornaListaDadosQuery(query);
+            return resultado;
+        }
+
 
         public string retornaidUsuario(string nome)
         {

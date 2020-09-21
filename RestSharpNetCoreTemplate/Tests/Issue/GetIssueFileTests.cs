@@ -21,7 +21,7 @@ namespace RestSharpNetCoreTemplate.Tests.Issue
         [Test]
         public void RetornaTarefaSemDocumento()
         {
-            List<string> tarefa = dataBaseSteps.retornaTarefaAleatoria();
+            List<string> tarefa = dataBaseSteps.retornaTarefaSemDocumento();
 
             string issueId = tarefa[0];
 
