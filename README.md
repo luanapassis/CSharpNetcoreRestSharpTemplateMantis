@@ -1,6 +1,3 @@
-## Este projeto está utilizando a arquitetura da BASE2. Todo crédito a equipe de projetos!!
-
-
 ## Automação
 
 - Arquitetura Projeto
